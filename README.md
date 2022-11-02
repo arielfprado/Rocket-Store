@@ -2,8 +2,8 @@
 
 ### Description
 
-E-commerce developed using React.JS, Typscript and consuming an external API providing the informatio for the products, product ratings, categories,
-discount coupons, addresses saved and credit cards saved information. Context APIs were created to manage Favorites, ShoppingCart & Orders.
+e-commerce developed using React.JS, Typescript and consuming an external API providing the information for the products, product ratings, categories,
+discount coupons, addresses saved and credit cards saved. Context APIs were created to manage Favorites, ShoppingCart & Orders.
 
 ### Preview
 
