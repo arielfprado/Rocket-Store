@@ -1,12 +1,18 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const Container = styled.div`
   background: ${({ theme }) => theme.colors.white};
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform 0.5s;
   margin-left: 4%;
   margin-top: 60px;
+
+  &:hover {
+    transform: translateY(-30px);
+    transition: transform 0.5s;
+  }
 
   .product-container {
     display: flex;
@@ -41,29 +47,6 @@ export const Container = styled.div`
     border: none;
   }
 
-  .trash-icon {
-    display: flex;
-    box-sizing: border-box;
-    position: absolute;
-    z-index: 2;
-    top: 2%;
-    left: 85%;
-    padding: 3%;
-    background-color: ${({ theme }) => theme.colors.black};
-    color: ${({ theme }) => theme.colors.white};
-    font-size: 20px;
-    border: none;
-    border-radius: 5px;
-    transition: 0.3s;
-
-    &:hover {
-      cursor: pointer;
-      background-color: ${({ theme }) => theme.colors.gray};
-      color: ${({ theme }) => theme.colors.black};
-      transition: 0.3s;
-    }
-  }
-
   .product-description-container {
     position: relative;
     display: flex;
@@ -90,19 +73,10 @@ export const Container = styled.div`
     width: max-content;
   }
 
-  .shoppingcart-actions {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    gap: 1rem;
-    button {
-      background: #e2e8f0;
-      border-radius: 5px;
-      padding: 0.4rem 0.8rem;
-      border: none;
-      cursor: pointer;
-    }
+  .product-quantity {
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    width: max-content;
   }
 
   @media (max-width: 992px) {

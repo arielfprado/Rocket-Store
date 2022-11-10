@@ -31,7 +31,7 @@ export function Breadcrumb() {
             "breadcrumb-active" : 
             "breadcrumb-not-active"}
           >
-            {product?.categories} /
+            {product?.categories[0]} /
           </li>
           <li
             className={ location.pathname === `/products/${id}` ? 

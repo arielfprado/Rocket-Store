@@ -66,7 +66,7 @@ export function ShoppingCartCardSummary() {
         </div>
         <div className="cardsummary-info">
           <div className="card-summary-spacebetween">
-            <p>Sub total</p>
+            <p>Subtotal</p>
             <p>{`R$ ${subtotal.toFixed(2)}`}</p>
           </div>
           <div className="card-summary-spacebetween">
