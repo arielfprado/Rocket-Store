@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  min-height: calc(100vh - 432px);
+  min-height: calc(100% - 432px);
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black};
 
@@ -9,18 +9,18 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1vw;
+    margin-top: 10px;
   }
 
   h2 {
     display: flex;
     align-items: center;
-    margin-left: 20vw;
+    margin-left: 20%;
     font-size: 2rem;
   }
 
   .results-list {
-    margin-right: 4vw;
+    margin-right: 4%;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
   }

@@ -1,64 +1,42 @@
-import { useEffect, useState } from "react";
-import { Formik, Form, Field, useFormik } from "formik";
-import { AiFillCheckCircle, AiOutlineLine } from "react-icons/ai";
-import { useShoppingCart } from "../../contexts/useShoppingCart";
+import { useEffect, useState } from "react"
+import { Formik, Form, Field, useFormik } from "formik"
+import { AiFillCheckCircle, AiOutlineLine } from "react-icons/ai"
 
-import { schemaCheckoutStep1 } from "../../helpers/schemaCheckoutStep1";
+import { schemaCheckoutStep1 } from "../../helpers/schemaCheckoutStep1"
 
-import * as Styles from "./styles";
-import api from '../../services/api';
+import * as Styles from "./styles"
+import api from "../../services/api"
 
-import { 
-  FormValues, 
-  IAddressDataProps, 
-  ICheckoutAddress, 
-  IShippingDataProps
-  } from "./types";
-
+import {
+  IAddressDataProps,
+  ICheckoutAddress,
+  IShippingDataProps,
+} from "./types"
 
 export function CheckoutAddress({ changeStep }: ICheckoutAddress) {
   const handleSubmit = () => {
-    changeStep();
-    const cookieName = "@e-commerce-orders-1.0.0";
-    const orders = localStorage.getItem(cookieName)
-    const { shoppingCart, setShoppingCart } = useShoppingCart();
-  
-    if (orders) {
-      const updatedOrders = [
-        ...JSON.parse(orders),
-        ...shoppingCart
-      ]
-      
-      localStorage.setItem(cookieName, JSON.stringify(updatedOrders))
-      console.log("chegou ao final")
-    } else {
-      localStorage.setItem(cookieName, JSON.stringify(shoppingCart))
-    }
-  
-    setShoppingCart([]);
-    console.log("chegou ao final 2")
-  };
-  
-  const formValue = useFormik(
-    { initialValues: {
-    address: "0",
-    firstAddress: "",
-    street: "",
-    cep: "",
-  },
-  onSubmit: (values) => console.log(values),
-});
+    changeStep()
+  }
 
-  const [address, setAddress] = useState<IAddressDataProps>({} as IAddressDataProps);
-  
+  const formValue = useFormik({
+    initialValues: {
+      address: "0",
+      firstAddress: "",
+      street: "",
+      cep: "",
+    },
+    onSubmit: (values) => console.log(values),
+  })
+
+  const [address, setAddress] = useState<IAddressDataProps>(
+    {} as IAddressDataProps
+  )
+
   useEffect(() => {
-    api
-      .get('/addresses')
-      .then((response) => {
-        setAddress(response.data);
-      })
+    api.get("/addresses").then((response) => {
+      setAddress(response.data)
+    })
   }, [])
-
 
   const renderAddress = (address: IAddressDataProps) => {
     return (
@@ -75,7 +53,7 @@ export function CheckoutAddress({ changeStep }: ICheckoutAddress) {
   const [select, setSelected] = useState<number>(0)
 
   const handleSelectInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelected(Number(e.target.value));
+    setSelected(Number(e.target.value))
   }
 
   const [data, setData] = useState<IShippingDataProps>({} as IShippingDataProps)
@@ -96,20 +74,21 @@ export function CheckoutAddress({ changeStep }: ICheckoutAddress) {
     )
   }
 
-
   return (
     <Styles.Container>
       <div className="container">
         <Formik
-          initialValues={
-            {
-              address: "0",
-              firstAddress: address?.content ? address?.content[Number(formValue.values.address)].address : '',
-              street: "",
-              cep: address?.content ? address?.content[Number(formValue.values.address)].cep : '',
-              dispatch: "frete1",
-            }
-          }
+          initialValues={{
+            address: "0",
+            firstAddress: address?.content
+              ? address?.content[Number(formValue.values.address)].address
+              : "",
+            street: "",
+            cep: address?.content
+              ? address?.content[Number(formValue.values.address)].cep
+              : "",
+            dispatch: "frete1",
+          }}
           validationSchema={schemaCheckoutStep1}
           onSubmit={handleSubmit}
           enableReinitialize

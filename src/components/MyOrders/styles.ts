@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const MyOrdersWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 6vw;
+  padding-left: 6%;
   .container {
-    width: calc(100% - 6vw);
+    width: 94%;
   }
   h1 {
     font-family: "FONTSPRING DEMO - Greycliff CF";

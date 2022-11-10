@@ -1,54 +1,57 @@
-import { useEffect, useState } from "react";
-import { Formik, Form, Field, useFormik } from "formik";
-import { AiOutlineLine, AiFillCheckCircle } from "react-icons/ai";
-import { schemaCheckoutStep2 } from "../../helpers/schemaCheckoutStep2";
-import { Link } from "../Link";
+import { useEffect, useState } from "react"
+import { Formik, Form, Field, useFormik } from "formik"
+import { AiOutlineLine, AiFillCheckCircle } from "react-icons/ai"
+import { schemaCheckoutStep2 } from "../../helpers/schemaCheckoutStep2"
 
-import * as Styles from "./styles";
-import api from "../../services/api";
+import * as Styles from "./styles"
+import api from "../../services/api"
 
-import { FormValues, ICardDataProps } from "./types"
+import { ICardDataProps } from "./types"
+import { useOrders } from "../../contexts/useOrders"
+import { useShoppingCart } from "../../contexts/useShoppingCart"
+import { useNavigate } from "react-router-dom"
 
 export function CheckoutPayment() {
-  const cookieName = "@e-commerce-orders-1.0.0";
+  const navigate = useNavigate()
+  const { createOrder } = useOrders()
+  const { shoppingCart } = useShoppingCart()
 
-  const handleSubmit = async (data: FormValues) => {
-    alert(JSON.stringify(data));
-  };
+  const [card, setCard] = useState<ICardDataProps>({} as ICardDataProps)
 
+  function handleSubmit() {
+    createOrder(shoppingCart)
 
-  const formValue = useFormik(
-    {
-      initialValues: {
-        creditCard: "0",
-        name: "",
-        cardNumber: "",
-        expiresIn: "",
-        cvv: 0,
-      },
-      onSubmit: (values) => console.log(values),
-    })
+    navigate("/orders")
+  }
 
-  const [card, setCard] = useState<ICardDataProps>({} as ICardDataProps);
-  // console.log(card);
+  const formValue = useFormik({
+    initialValues: {
+      creditCard: "0",
+      name: "",
+      cardNumber: "",
+      expiresIn: "",
+      cvv: 0,
+    },
+    onSubmit: handleSubmit,
+  })
 
-  useEffect(() => {
-    api.get("/cards").then((response) => {
-      setCard(response.data);
-    });
-  }, []);
-  
-  const renderCard = (card: ICardDataProps) => {
+  function renderCard(card: ICardDataProps) {
     return (
       <>
-      {card?.content?.map((card, index) => (
-        <option key={index} value={index}>
-          {`Cartão ${index + 1}`}
-        </option>
-      ))}
+        {card?.content?.map((card, index) => (
+          <option key={index} value={index}>
+            {`Cartão ${index + 1}`}
+          </option>
+        ))}
       </>
     )
   }
+
+  useEffect(() => {
+    api.get("/cards").then((response) => {
+      setCard(response.data)
+    })
+  }, [])
 
   return (
     <Styles.Container>
@@ -56,10 +59,18 @@ export function CheckoutPayment() {
         <Formik
           initialValues={{
             creditCard: "0",
-            name: card?.content ? card?.content[Number(formValue.values.creditCard)].name : '',
-            cardNumber: card?.content ? card?.content[Number(formValue.values.creditCard)].cardNumber : '',
-            expiresIn: card?.content ? card?.content[Number(formValue.values.creditCard)].expiresIn : '',
-            cvv: card?.content ? card?.content[Number(formValue.values.creditCard)].cvv : 0,
+            name: card?.content
+              ? card?.content[Number(formValue.values.creditCard)].name
+              : "",
+            cardNumber: card?.content
+              ? card?.content[Number(formValue.values.creditCard)].cardNumber
+              : "",
+            expiresIn: card?.content
+              ? card?.content[Number(formValue.values.creditCard)].expiresIn
+              : "",
+            cvv: card?.content
+              ? card?.content[Number(formValue.values.creditCard)].cvv
+              : 0,
           }}
           validationSchema={schemaCheckoutStep2}
           onSubmit={handleSubmit}
@@ -109,7 +120,7 @@ export function CheckoutPayment() {
                     {({ field, meta }: any) => (
                       <label htmlFor="name" className="credit-name">
                         <div>
-                          <h4>Nome do Cartão</h4>
+                          <h4>Nome do cartão</h4>
                         </div>
                         <input
                           type="text"
@@ -121,7 +132,7 @@ export function CheckoutPayment() {
                           }
                         />
                       </label>
-                      )}
+                    )}
                   </Field>
                 </div>
 
@@ -169,7 +180,6 @@ export function CheckoutPayment() {
                     </Field>
                   </div>
 
-
                   <div className="group">
                     <Field name="cvv">
                       {({ field, meta }: any) => (
@@ -192,11 +202,9 @@ export function CheckoutPayment() {
 
                 <div className="buttons-wrapper">
                   <button className="cancelar-button">Cancelar</button>
-                  <Link to="/orders">
                   <button className="pagamento-button" type="submit">
                     Confirmar pagamento
                   </button>
-                  </Link>
                 </div>
               </div>
             </Form>

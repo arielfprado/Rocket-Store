@@ -9,13 +9,13 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 1vw;
+    margin-top: 18px;
   }
 
   h2 {
     display: flex;
     align-items: center;
-    margin-left: 20vw;
+    margin-left: 20%;
     font-size: 2rem;
   }
 

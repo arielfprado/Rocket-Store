@@ -35,7 +35,7 @@ export function ProductCard(props: IProductCardProps) {
                   props.handleAddOrRemoveProductOnFavorites(props.product)
                 }
               >
-                <FaStar size="1.45vw" />
+                <FaStar size="20" />
               </button>
             ) : (
               <button
@@ -45,7 +45,7 @@ export function ProductCard(props: IProductCardProps) {
                   props.handleAddOrRemoveProductOnFavorites(props.product)
                 }
               >
-                <FiStar size="1.45vw" />
+                <FiStar size="20" />
               </button>
             )}
 

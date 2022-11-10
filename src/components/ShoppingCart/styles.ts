@@ -9,7 +9,7 @@ export const ShoppingCartComponentWrapper = styled.div`
   h2 {
     display: flex;
     align-items: center;
-    margin-left: 20vw;
+    margin-left: 20%;
     font-size: 2rem;
   }
 

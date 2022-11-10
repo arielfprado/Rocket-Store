@@ -1,9 +1,9 @@
 export interface FormValues {
-  address: string;
-  firstAddress: string;
-  street: string;
-  cep: string;
-  dispatch: string;
+  address: string
+  firstAddress: string
+  street: string
+  cep: string
+  dispatch: string
 }
 
 export interface IAddressProps {
@@ -12,7 +12,7 @@ export interface IAddressProps {
 }
 
 export interface IAddressDataProps {
-  content: IAddressProps[];
+  content: IAddressProps[]
 }
 
 export interface IShippingProps {
@@ -20,10 +20,9 @@ export interface IShippingProps {
 }
 
 export interface IShippingDataProps {
-  content: IShippingProps[];
+  content: IShippingProps[]
 }
 
-
 export interface ICheckoutAddress {
-  changeStep: () => void;
+  changeStep: () => void
 }
